@@ -26,12 +26,9 @@ import android.provider.BaseColumns;
  */
 public interface TracksColumns extends BaseColumns {
 
-  public static final Uri CONTENT_URI =
-      Uri.parse("content://com.google.android.maps.mytracks/tracks");
-  public static final String CONTENT_TYPE =
-      "vnd.android.cursor.dir/vnd.google.track";
-  public static final String CONTENT_ITEMTYPE =
-      "vnd.android.cursor.item/vnd.google.track";
+  public static final Uri CONTENT_URI = Uri.parse("content://com.google.android.maps.mytracks/tracks");
+  public static final String CONTENT_TYPE     = "vnd.android.cursor.dir/vnd.google.track";
+  public static final String CONTENT_ITEMTYPE = "vnd.android.cursor.item/vnd.google.track";
   public static final String DEFAULT_SORT_ORDER = "_id";
 
   /* All columns */

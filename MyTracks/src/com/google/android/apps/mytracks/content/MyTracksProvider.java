@@ -43,6 +43,7 @@ import android.util.Log;
  */
 public class MyTracksProvider extends ContentProvider {
 
+  public  static final String TAG = "MyTracksProvider";
   private static final String DATABASE_NAME = "mytracks.db";
   private static final int DATABASE_VERSION = 19;
   private static final int TRACKPOINTS = 1;
@@ -51,10 +52,11 @@ public class MyTracksProvider extends ContentProvider {
   private static final int TRACKS_ID = 4;
   private static final int WAYPOINTS = 5;
   private static final int WAYPOINTS_ID = 6;
+  
   private static final String TRACKPOINTS_TABLE = "trackpoints";
   private static final String TRACKS_TABLE = "tracks";
   private static final String WAYPOINTS_TABLE = "waypoints";
-  public static final String TAG = "MyTracksProvider";
+  
 
   /**
    * Helper which creates or upgrades the database if necessary.
@@ -175,15 +177,12 @@ public class MyTracksProvider extends ContentProvider {
 
   public MyTracksProvider() {
     urlMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY,
-        "trackpoints", TRACKPOINTS);
-    urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY,
-        "trackpoints/#", TRACKPOINTS_ID);
+    urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY, "trackpoints", TRACKPOINTS);
+    urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY, "trackpoints/#", TRACKPOINTS_ID);
     urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY, "tracks", TRACKS);
     urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY, "tracks/#", TRACKS_ID);
     urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY, "waypoints", WAYPOINTS);
-    urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY,
-        "waypoints/#", WAYPOINTS_ID);
+    urlMatcher.addURI(MyTracksProviderUtils.AUTHORITY, "waypoints/#", WAYPOINTS_ID);
   }
 
   private boolean canAccess() {
@@ -374,9 +373,7 @@ public class MyTracksProvider extends ContentProvider {
   }
 
   @Override
-  public Cursor query(
-      Uri url, String[] projection, String selection, String[] selectionArgs,
-      String sort) {
+  public Cursor query(Uri url, String[] projection, String selection, String[] selectionArgs, String sort) {
     if (!canAccess()) {
       return null;
     }
@@ -416,18 +413,15 @@ public class MyTracksProvider extends ContentProvider {
     } else {
       throw new IllegalArgumentException("Unknown URL " + url);
     }
-    Log.i(Constants.TAG, "Build query: "
-        + qb.buildQuery(projection, selection, selectionArgs, null, null, sortOrder, null));
-    
-    Cursor c = qb.query(db, projection, selection, selectionArgs, null, null,
-        sortOrder);
+    Log.i(Constants.TAG, "Build query: " + qb.buildQuery(projection, selection, selectionArgs, null, null, sortOrder, null));
+        
+    Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
     c.setNotificationUri(getContext().getContentResolver(), url);
     return c;
   }
 
   @Override
-  public int update(Uri url, ContentValues values, String where,
-      String[] selectionArgs) {
+  public int update(Uri url, ContentValues values, String where, String[] selectionArgs) {
     if (!canAccess()) {
       return 0;
     }

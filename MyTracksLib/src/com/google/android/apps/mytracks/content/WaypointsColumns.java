@@ -26,12 +26,9 @@ import android.provider.BaseColumns;
  */
 public interface WaypointsColumns extends BaseColumns {
 
-  public static final Uri CONTENT_URI =
-      Uri.parse("content://com.google.android.maps.mytracks/waypoints");
-  public static final String CONTENT_TYPE =
-      "vnd.android.cursor.dir/vnd.google.waypoint";
-  public static final String CONTENT_ITEMTYPE =
-      "vnd.android.cursor.item/vnd.google.waypoint";
+  public static final Uri CONTENT_URI = Uri.parse("content://com.google.android.maps.mytracks/waypoints");
+  public static final String CONTENT_TYPE     = "vnd.android.cursor.dir/vnd.google.waypoint";
+  public static final String CONTENT_ITEMTYPE = "vnd.android.cursor.item/vnd.google.waypoint";
   public static final String DEFAULT_SORT_ORDER = "_id";
 
   /* All columns */
