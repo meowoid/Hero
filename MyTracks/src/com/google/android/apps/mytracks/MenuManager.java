@@ -19,8 +19,16 @@ import com.google.android.maps.mytracks.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Manage the application menus.
@@ -90,6 +98,15 @@ class MenuManager {
       case R.id.menu_search: {
         // TODO: Pass the current track ID and current location to do some fancier ranking.
         activity.onSearchRequested();
+        break;
+      }
+      case R.id.menu_dump_database: {
+        try {
+          backupDatabase(activity.getPackageName(), "mytracks.db");
+        } catch (IOException e) {
+          e.printStackTrace();
+          Log.e("MyTracks", "Dump database file failed.");
+        }
       }
     }
     return false;
@@ -99,4 +116,21 @@ class MenuManager {
     activity.startActivity(new Intent(activity, activityClass));
     return true;
   }
+  
+  private void backupDatabase(String pkgName, String fileName) throws IOException {
+    File dbFile = new File("/data/data/" + pkgName + "/databases/" + fileName);
+    if (dbFile.exists()) {
+        FileInputStream fis = new FileInputStream(dbFile);
+        String outFileName = Environment.getExternalStorageDirectory()+ "/" + fileName;
+        OutputStream output = new FileOutputStream(outFileName);
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = fis.read(buffer)) > 0) {
+            output.write(buffer, 0, length);
+        }
+        output.flush();
+        output.close();
+        fis.close();
+    }
+}
 }

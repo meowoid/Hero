@@ -53,4 +53,7 @@ limitations under the License.
     android:icon="@android:drawable/ic_menu_info_details"
     android:orderInCategory="1003"
     android:title="@string/menu_help"/>
+  <item android:id="@+id/menu_dump_database"
+    android:orderInCategory="1004"
+    android:title="@string/menu_dump_database"/>
 </menu>

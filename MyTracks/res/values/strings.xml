@@ -3532,4 +3532,5 @@ limitations under the License.
       Screenshot: welcome.png">
     What are waypoint markers?
   </string>
+  <string name="menu_dump_database">Dump database</string>
 </resources>
