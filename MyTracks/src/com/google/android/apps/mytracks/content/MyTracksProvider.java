@@ -378,41 +378,48 @@ public class MyTracksProvider extends ContentProvider {
       return null;
     }
     SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-    int match = urlMatcher.match(url);
     String sortOrder = null;
-    if (match == TRACKPOINTS) {
-      qb.setTables(TRACKPOINTS_TABLE);
-      if (sort != null) {
-        sortOrder = sort;
-      } else {
-        sortOrder = TrackPointsColumns.DEFAULT_SORT_ORDER;
-      }
-    } else if (match == TRACKPOINTS_ID) {
-      qb.setTables(TRACKPOINTS_TABLE);
-      qb.appendWhere("_id=" + url.getPathSegments().get(1));
-    } else if (match == TRACKS) {
-      qb.setTables(TRACKS_TABLE);
-      if (sort != null) {
-        sortOrder = sort;
-      } else {
-        sortOrder = TracksColumns.DEFAULT_SORT_ORDER;
-      }
-    } else if (match == TRACKS_ID) {
-      qb.setTables(TRACKS_TABLE);
-      qb.appendWhere("_id=" + url.getPathSegments().get(1));
-    } else if (match == WAYPOINTS) {
-      qb.setTables(WAYPOINTS_TABLE);
-      if (sort != null) {
-        sortOrder = sort;
-      } else {
-        sortOrder = WaypointsColumns.DEFAULT_SORT_ORDER;
-      }
-    } else if (match == WAYPOINTS_ID) {
-      qb.setTables(WAYPOINTS_TABLE);
-      qb.appendWhere("_id=" + url.getPathSegments().get(1));
-    } else {
-      throw new IllegalArgumentException("Unknown URL " + url);
+    switch (urlMatcher.match(url)) {
+      case TRACKPOINTS:
+        qb.setTables(TRACKPOINTS_TABLE);
+        if (sort != null) {
+          sortOrder = sort;
+        } else {
+          sortOrder = TrackPointsColumns.DEFAULT_SORT_ORDER;
+        }
+        break;
+      case TRACKPOINTS_ID:
+        qb.setTables(TRACKPOINTS_TABLE);
+        qb.appendWhere("_id=" + url.getPathSegments().get(1));
+        break;
+      case TRACKS:
+        qb.setTables(TRACKS_TABLE);
+        if (sort != null) {
+          sortOrder = sort;
+        } else {
+          sortOrder = TracksColumns.DEFAULT_SORT_ORDER;
+        }
+        break;
+      case TRACKS_ID:
+        qb.setTables(TRACKS_TABLE);
+        qb.appendWhere("_id=" + url.getPathSegments().get(1));
+        break;
+      case WAYPOINTS:
+        qb.setTables(WAYPOINTS_TABLE);
+        if (sort != null) {
+          sortOrder = sort;
+        } else {
+          sortOrder = WaypointsColumns.DEFAULT_SORT_ORDER;
+        }
+        break;
+      case WAYPOINTS_ID:
+        qb.setTables(WAYPOINTS_TABLE);
+        qb.appendWhere("_id=" + url.getPathSegments().get(1));
+        break;
+      default:
+        throw new IllegalArgumentException("Unknown URL " + url);
     }
+    
     Log.i(Constants.TAG, "Build query: " + qb.buildQuery(projection, selection, selectionArgs, null, null, sortOrder, null));
         
     Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
@@ -426,37 +433,45 @@ public class MyTracksProvider extends ContentProvider {
       return 0;
     }
     int count;
-    int match = urlMatcher.match(url);
-    if (match == TRACKPOINTS) {
-      count = db.update(TRACKPOINTS_TABLE, values, where, selectionArgs);
-    } else if (match == TRACKPOINTS_ID) {
-      String segment = url.getPathSegments().get(1);
-      count = db.update(TRACKPOINTS_TABLE, values, "_id=" + segment
-          + (!TextUtils.isEmpty(where)
-              ? " AND (" + where + ')'
-              : ""),
-          selectionArgs);
-    } else if (match == TRACKS) {
-      count = db.update(TRACKS_TABLE, values, where, selectionArgs);
-    } else if (match == TRACKS_ID) {
-      String segment = url.getPathSegments().get(1);
-      count = db.update(TRACKS_TABLE, values, "_id=" + segment
-          + (!TextUtils.isEmpty(where)
-              ? " AND (" + where + ')'
-              : ""),
-          selectionArgs);
-    } else if (match == WAYPOINTS) {
-      count = db.update(WAYPOINTS_TABLE, values, where, selectionArgs);
-    } else if (match == WAYPOINTS_ID) {
-      String segment = url.getPathSegments().get(1);
-      count = db.update(WAYPOINTS_TABLE, values, "_id=" + segment
-          + (!TextUtils.isEmpty(where)
-              ? " AND (" + where + ')'
-              : ""),
-          selectionArgs);
-    } else {
-      throw new IllegalArgumentException("Unknown URL " + url);
+    String segment;
+    switch (urlMatcher.match(url)) {
+      case TRACKPOINTS:
+        count = db.update(TRACKPOINTS_TABLE, values, where, selectionArgs);
+        break;
+      case TRACKPOINTS_ID:
+        segment = url.getPathSegments().get(1);
+        count = db.update(TRACKPOINTS_TABLE, values, "_id=" + segment
+            + (!TextUtils.isEmpty(where)
+                ? " AND (" + where + ')'
+                : ""),
+            selectionArgs);
+        break;
+      case TRACKS:
+        count = db.update(TRACKS_TABLE, values, where, selectionArgs);
+        break;
+      case TRACKS_ID:
+        segment = url.getPathSegments().get(1);
+        count = db.update(TRACKS_TABLE, values, "_id=" + segment
+            + (!TextUtils.isEmpty(where)
+                ? " AND (" + where + ')'
+                : ""),
+            selectionArgs);
+        break;
+      case WAYPOINTS:
+        count = db.update(WAYPOINTS_TABLE, values, where, selectionArgs);
+        break;
+      case WAYPOINTS_ID:
+        segment = url.getPathSegments().get(1);
+        count = db.update(WAYPOINTS_TABLE, values, "_id=" + segment
+            + (!TextUtils.isEmpty(where)
+                ? " AND (" + where + ')'
+                : ""),
+            selectionArgs);
+        break;
+      default:
+        throw new IllegalArgumentException("Unknown URL " + url);
     }
+
     getContext().getContentResolver().notifyChange(url, null, true);
     return count;
   }
