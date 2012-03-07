@@ -85,24 +85,20 @@ public class SystemUtils {
         return wakeLock;
       }
       if (wakeLock == null) {
-        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-            Constants.TAG);
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Constants.TAG);
         if (wakeLock == null) {
-          Log.e(Constants.TAG,
-              "LocationUtils: Could not create wake lock (null).");
+          Log.e(Constants.TAG, "LocationUtils: Could not create wake lock (null).");
         }
         return wakeLock;
       }
       if (!wakeLock.isHeld()) {
         wakeLock.acquire();
         if (!wakeLock.isHeld()) {
-          Log.e(Constants.TAG,
-              "LocationUtils: Could not acquire wake lock.");
+          Log.e(Constants.TAG, "LocationUtils: Could not acquire wake lock.");
         }
       }
     } catch (RuntimeException e) {
-      Log.e(Constants.TAG,
-          "LocationUtils: Caught unexpected exception: " + e.getMessage(), e);
+      Log.e(Constants.TAG,"LocationUtils: Caught unexpected exception: " + e.getMessage(), e);
     }
     return wakeLock;
   }

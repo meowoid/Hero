@@ -117,6 +117,7 @@ public class MyTracks extends TabActivity implements OnTouchListener {
     @Override
     public void run() {
       synchronized (serviceConnection) {
+        // Tim : why need to add synchronized
         ITrackRecordingService service = serviceConnection.getServiceIfBound();
         if (startNewTrackRequested && service != null) {
           Log.i(TAG, "Starting recording");
