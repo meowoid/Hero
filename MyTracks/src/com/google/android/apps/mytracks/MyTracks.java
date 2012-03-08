@@ -184,11 +184,9 @@ public class MyTracks extends TabActivity implements OnTouchListener {
     tabHost.getTabWidget().setVisibility(View.GONE);
 
     RelativeLayout layout = new RelativeLayout(this);
-    LayoutParams params =
-        new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+    LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
     layout.setLayoutParams(params);
-    navControls =
-        new NavControls(this, layout,
+    navControls = new NavControls(this, layout,
             getResources().obtainTypedArray(R.array.left_icons),
             getResources().obtainTypedArray(R.array.right_icons),
             changeTab);
