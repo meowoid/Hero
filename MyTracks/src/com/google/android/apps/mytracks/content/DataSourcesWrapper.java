@@ -30,25 +30,29 @@ import android.net.Uri;
  */
 interface DataSourcesWrapper {
   // Preferences
-  void registerOnSharedPreferenceChangeListener(
-      OnSharedPreferenceChangeListener listener);
-  void unregisterOnSharedPreferenceChangeListener(
-      OnSharedPreferenceChangeListener listener);
+  void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener);
+  
+  void unregisterOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener);
 
   // Content provider
-  void registerContentObserver(Uri contentUri, boolean descendents,
-      ContentObserver observer);
+  void registerContentObserver(Uri contentUri, boolean descendents,ContentObserver observer);
+  
   void unregisterContentObserver(ContentObserver observer);
 
   // Sensors
   Sensor getSensor(int type);
-  void registerSensorListener(SensorEventListener listener,
-      Sensor sensor, int sensorDelay);
+  
+  void registerSensorListener(SensorEventListener listener, Sensor sensor, int sensorDelay);
+  
   void unregisterSensorListener(SensorEventListener listener);
 
   // Location
   boolean isLocationProviderEnabled(String provider);
+  
   void requestLocationUpdates(LocationListener listener);
+  
   void removeLocationUpdates(LocationListener listener);
+  
   Location getLastKnownLocation();
+  
 } 

@@ -88,8 +88,7 @@ class DataSourceManager {
   }
 
   /** Listener for the current location (independent from track data). */
-  private class CurrentLocationListener implements
-      LocationListener {
+  private class CurrentLocationListener implements LocationListener {
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
       if (!LocationManager.GPS_PROVIDER.equals(provider)) return;
@@ -118,8 +117,7 @@ class DataSourceManager {
   }
 
   /** Listener for compass readings. */
-  private class CompassListener implements
-      SensorEventListener {
+  private class CompassListener implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
       listener.notifyHeadingChanged(event.values[0]);
