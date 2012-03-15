@@ -47,8 +47,7 @@ class TrackDataListeners {
     int lastSamplingFrequency;
     int numLoadedPoints;
 
-    public ListenerRegistration(TrackDataListener listener,
-        EnumSet<ListenerDataType> types) {
+    public ListenerRegistration(TrackDataListener listener, EnumSet<ListenerDataType> types) {
       this.listener = listener;
       this.types = types;
     }

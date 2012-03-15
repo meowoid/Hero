@@ -267,8 +267,7 @@ public class MyTracksProviderUtilsImpl implements MyTracksProviderUtils {
   public Track createTrack(Cursor cursor) {
     int idxId = cursor.getColumnIndexOrThrow(TracksColumns._ID);
     int idxName = cursor.getColumnIndexOrThrow(TracksColumns.NAME);
-    int idxDescription =
-        cursor.getColumnIndexOrThrow(TracksColumns.DESCRIPTION);
+    int idxDescription = cursor.getColumnIndexOrThrow(TracksColumns.DESCRIPTION);
     int idxMapId = cursor.getColumnIndexOrThrow(TracksColumns.MAPID);
     int idxTableId = cursor.getColumnIndexOrThrow(TracksColumns.TABLEID);
     int idxCategory = cursor.getColumnIndexOrThrow(TracksColumns.CATEGORY);
@@ -282,17 +281,13 @@ public class MyTracksProviderUtilsImpl implements MyTracksProviderUtils {
     int idxMaxlon = cursor.getColumnIndexOrThrow(TracksColumns.MAXLON);
     int idxMinlon = cursor.getColumnIndexOrThrow(TracksColumns.MINLON);
 
-    int idxTotalDistance =
-        cursor.getColumnIndexOrThrow(TracksColumns.TOTALDISTANCE);
+    int idxTotalDistance = cursor.getColumnIndexOrThrow(TracksColumns.TOTALDISTANCE);
     int idxTotalTime = cursor.getColumnIndexOrThrow(TracksColumns.TOTALTIME);
     int idxMovingTime = cursor.getColumnIndexOrThrow(TracksColumns.MOVINGTIME);
     int idxMaxSpeed = cursor.getColumnIndexOrThrow(TracksColumns.MAXSPEED);
-    int idxMinElevation =
-        cursor.getColumnIndexOrThrow(TracksColumns.MINELEVATION);
-    int idxMaxElevation =
-        cursor.getColumnIndexOrThrow(TracksColumns.MAXELEVATION);
-    int idxElevationGain =
-        cursor.getColumnIndexOrThrow(TracksColumns.ELEVATIONGAIN);
+    int idxMinElevation = cursor.getColumnIndexOrThrow(TracksColumns.MINELEVATION);
+    int idxMaxElevation = cursor.getColumnIndexOrThrow(TracksColumns.MAXELEVATION);
+    int idxElevationGain = cursor.getColumnIndexOrThrow(TracksColumns.ELEVATIONGAIN);
     int idxMinGrade = cursor.getColumnIndexOrThrow(TracksColumns.MINGRADE);
     int idxMaxGrade = cursor.getColumnIndexOrThrow(TracksColumns.MAXGRADE);
 
@@ -638,8 +633,7 @@ public class MyTracksProviderUtilsImpl implements MyTracksProviderUtils {
   private Track findTrackBy(String select) {
     Cursor cursor = null;
     try {
-      cursor = contentResolver.query(
-          TracksColumns.CONTENT_URI, null, select, null, null);
+      cursor = contentResolver.query(TracksColumns.CONTENT_URI, null, select, null, null);
       if (cursor != null && cursor.moveToNext()) {
         return createTrack(cursor);
       }
